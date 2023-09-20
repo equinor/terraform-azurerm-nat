@@ -1,3 +1,8 @@
+variable "gateway_name" {
+  description = "The name of this NAT gateway."
+  type        = string
+}
+
 variable "resource_group_name" {
   description = "The name of the resource group to create the resources in."
   type        = string
@@ -6,6 +11,18 @@ variable "resource_group_name" {
 variable "location" {
   description = "The location to create the resources in."
   type        = string
+}
+
+variable "subnet_ids" {
+  description = "A list of subnet IDs to associate with this NAT gateway."
+  type        = list(string)
+  default     = []
+}
+
+variable "public_ip_address_ids" {
+  description = "A list of public IP address IDs to associate with this NAT gateway."
+  type        = list(string)
+  default     = []
 }
 
 variable "tags" {
