@@ -42,7 +42,7 @@ resource "azurerm_public_ip" "example" {
   sku                 = "Standard"
   allocation_method   = "Static"
 
-  tags = var.tags
+  tags = local.tags
 }
 
 module "nat" {
