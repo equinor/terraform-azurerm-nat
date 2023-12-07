@@ -7,7 +7,7 @@ Terraform module which creates an Azure NAT gateway.
 
 ## Usage
 
-See [usage examples](./examples/).
+See [examples](examples).
 
 ## Contributing
 
