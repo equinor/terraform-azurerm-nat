@@ -12,19 +12,12 @@ resource "random_id" "example" {
   byte_length = 8
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = "rg-${random_id.example.hex}"
-  location = var.location
-
-  tags = local.tags
-}
-
 module "network" {
   source = "github.com/equinor/terraform-azurerm-network?ref=v2.0.0"
 
   vnet_name           = "vnet-${random_id.example.hex}"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
   address_spaces      = ["10.0.0.0/16"]
 
   subnets = {
@@ -37,8 +30,8 @@ module "network" {
 
 resource "azurerm_public_ip" "example" {
   name                = "pip-${random_id.example.hex}"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
   sku                 = "Standard"
   allocation_method   = "Static"
 
@@ -50,8 +43,8 @@ module "nat" {
   source = "../.."
 
   gateway_name        = "ng-${random_id.example.hex}"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = var.resource_group_name
+  location            = var.location
 
   subnet_ids            = [module.network.subnet_ids["example"]]
   public_ip_address_ids = [azurerm_public_ip.example.id]
