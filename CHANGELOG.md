@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/equinor/terraform-azurerm-nat/compare/v1.0.0...v2.0.0) (2023-12-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove variable `subnet_ids` and resources `azurerm_subnet_nat_gateway_association`. To migrate your project, remove any references to variable `subnet_ids` and move any resources `azurerm_subnet_nat_gateway_association` to another module in your configuration.
+
+### Features
+
+* don't create subnet association ([#8](https://github.com/equinor/terraform-azurerm-nat/issues/8)) ([d34dca0](https://github.com/equinor/terraform-azurerm-nat/commit/d34dca084a2cec03ff2a484e365e14005c8f74eb))
+
 ## 0.1.0 (2023-09-20)
 
 
