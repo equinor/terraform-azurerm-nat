@@ -7,13 +7,6 @@ resource "azurerm_nat_gateway" "this" {
   tags = var.tags
 }
 
-resource "azurerm_subnet_nat_gateway_association" "this" {
-  count = length(var.subnet_ids)
-
-  nat_gateway_id = azurerm_nat_gateway.this.id
-  subnet_id      = var.subnet_ids[count.index]
-}
-
 resource "azurerm_nat_gateway_public_ip_association" "this" {
   count = length(var.public_ip_address_ids)
 
