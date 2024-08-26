@@ -14,7 +14,7 @@ variable "location" {
 }
 
 variable "public_ip_address_ids" {
-  description = "A list of public IP address IDs to associate with this NAT gateway."
+  description = "A list of IDs of Public IP addresses to associate with this NAT gateway."
   type        = list(string)
   default     = []
 }
