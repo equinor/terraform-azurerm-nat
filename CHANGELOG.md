@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/equinor/terraform-azurerm-nat/compare/v2.0.0...v2.0.1) (2024-08-26)
+
+
+### Documentation
+
+* update variable description ([#18](https://github.com/equinor/terraform-azurerm-nat/issues/18)) ([e213afa](https://github.com/equinor/terraform-azurerm-nat/commit/e213afae2f79595a77687b4e9c9a148bc15a212e))
+
 ## [2.0.0](https://github.com/equinor/terraform-azurerm-nat/compare/v1.0.0...v2.0.0) (2023-12-18)
 
 
