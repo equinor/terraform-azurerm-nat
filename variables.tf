@@ -19,6 +19,12 @@ variable "public_ip_address_ids" {
   default     = []
 }
 
+variable "public_ip_prefix_ids" {
+  description = "A list of IDs of Public IP prefixes to associate with this NAT gateway."
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
