@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/equinor/terraform-azurerm-nat/compare/v2.0.1...v2.1.0) (2024-09-06)
+
+
+### Features
+
+* create Public IP prefix associations ([#20](https://github.com/equinor/terraform-azurerm-nat/issues/20)) ([ad990fe](https://github.com/equinor/terraform-azurerm-nat/commit/ad990fec0f8d97e71fc607f1e6ec66f6341d6f00))
+
 ## [2.0.1](https://github.com/equinor/terraform-azurerm-nat/compare/v2.0.0...v2.0.1) (2024-08-26)
 
 
