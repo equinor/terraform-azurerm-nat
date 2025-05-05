@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/equinor/terraform-azurerm-nat/compare/v2.1.1...v2.1.2) (2025-05-05)
+
+
+### Documentation
+
+* update README header ([5070335](https://github.com/equinor/terraform-azurerm-nat/commit/5070335d4e4c52f53961c043d4b06f2d676e34ca))
+
 ## [2.1.1](https://github.com/equinor/terraform-azurerm-nat/compare/v2.1.0...v2.1.1) (2025-05-05)
 
 
