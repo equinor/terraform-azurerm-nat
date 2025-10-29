@@ -1,12 +1,5 @@
 # Terraform module for Azure NAT Gateway
 
-[![GitHub Release](https://img.shields.io/github/v/release/equinor/terraform-azurerm-nat)](https://github.com/equinor/terraform-azurerm-nat/releases/latest)
-[![Terraform Module Downloads](https://img.shields.io/terraform/module/dt/equinor/nat/azurerm)](https://registry.terraform.io/modules/equinor/nat/azurerm/latest)
-[![GitHub contributors](https://img.shields.io/github/contributors/equinor/terraform-azurerm-nat)](https://github.com/equinor/terraform-azurerm-nat/graphs/contributors)
-[![GitHub Issues](https://img.shields.io/github/issues/equinor/terraform-azurerm-nat)](https://github.com/equinor/terraform-azurerm-nat/issues)
-[![GitHub Pull requests](https://img.shields.io/github/issues-pr/equinor/terraform-azurerm-nat)](https://github.com/equinor/terraform-azurerm-nat/pulls)
-[![GitHub License](https://img.shields.io/github/license/equinor/terraform-azurerm-nat)](https://github.com/equinor/terraform-azurerm-nat/blob/main/LICENSE)
-
 Terraform module which creates Azure NAT Gateway resources.
 
 ## Features
