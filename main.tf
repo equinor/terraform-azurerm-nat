@@ -1,24 +1,36 @@
+resource "azurerm_public_ip" "this" {
+  for_each = var.public_ips
+
+  name                = each.value.name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  # The allocation method must be "Static" to use the "StandardV2" SKU.
+  # Ref: https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/public-ip-addresses#sku
+  allocation_method = "Static"
+
+  # The SKU must match the NAT gateway SKU name.
+  sku = "StandardV2"
+
+  tags = var.tags
+}
+
 resource "azurerm_nat_gateway" "this" {
   name                = var.gateway_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  sku_name            = "StandardV2" # Required to create a diagnostic setting.
+
+  # The "StandardV2" SKU is required to create a diagnostic setting.
+  sku_name = "StandardV2"
 
   tags = var.tags
 }
 
 resource "azurerm_nat_gateway_public_ip_association" "this" {
-  count = length(var.public_ip_address_ids)
+  for_each = azurerm_public_ip.this
 
   nat_gateway_id       = azurerm_nat_gateway.this.id
-  public_ip_address_id = var.public_ip_address_ids[count.index]
-}
-
-resource "azurerm_nat_gateway_public_ip_prefix_association" "this" {
-  count = length(var.public_ip_prefix_ids)
-
-  nat_gateway_id      = azurerm_nat_gateway.this.id
-  public_ip_prefix_id = var.public_ip_prefix_ids[count.index]
+  public_ip_address_id = each.value.id
 }
 
 # Don't create "azurerm_subnet_nat_gateway_association" resources in this module.
