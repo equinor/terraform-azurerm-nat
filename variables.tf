@@ -19,7 +19,7 @@ variable "log_analytics_workspace_id" {
   nullable    = false
 }
 
-variable "public_ips" {
+variable "public_ip_addresses" {
   description = "A map of Public IP addresses to create and associate with this NAT gateway."
   type = map(object({
     name = string

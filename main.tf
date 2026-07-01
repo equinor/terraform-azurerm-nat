@@ -10,7 +10,7 @@ resource "azurerm_nat_gateway" "this" {
 }
 
 resource "azurerm_public_ip" "this" {
-  for_each = var.public_ips
+  for_each = var.public_ip_addresses
 
   name                = each.value.name
   resource_group_name = var.resource_group_name
