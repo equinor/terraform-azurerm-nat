@@ -33,6 +33,15 @@ variable "public_ips" {
   }
 }
 
+variable "public_ip_prefixes" {
+  description = "A map of Public IP prefixes to create and associate with this NAT gateway."
+  type = map(object({
+    name = string
+  }))
+  nullable = false
+  default  = {}
+}
+
 variable "diagnostic_setting_name" {
   description = "The name of this diagnostic setting."
   type        = string

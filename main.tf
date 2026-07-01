@@ -1,3 +1,14 @@
+resource "azurerm_nat_gateway" "this" {
+  name                = var.gateway_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  # The "StandardV2" SKU is required to create a diagnostic setting.
+  sku_name = "StandardV2"
+
+  tags = var.tags
+}
+
 resource "azurerm_public_ip" "this" {
   for_each = var.public_ips
 
@@ -15,22 +26,31 @@ resource "azurerm_public_ip" "this" {
   tags = var.tags
 }
 
-resource "azurerm_nat_gateway" "this" {
-  name                = var.gateway_name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-
-  # The "StandardV2" SKU is required to create a diagnostic setting.
-  sku_name = "StandardV2"
-
-  tags = var.tags
-}
-
 resource "azurerm_nat_gateway_public_ip_association" "this" {
   for_each = azurerm_public_ip.this
 
   nat_gateway_id       = azurerm_nat_gateway.this.id
   public_ip_address_id = each.value.id
+}
+
+resource "azurerm_public_ip_prefix" "this" {
+  for_each = var.public_ip_prefixes
+
+  name                = each.value.name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  # The SKU must match the NAT gateway SKU name.
+  sku = "StandardV2"
+
+  tags = var.tags
+}
+
+resource "azurerm_nat_gateway_public_ip_prefix_association" "this" {
+  for_each = azurerm_public_ip_prefix.this
+
+  nat_gateway_id      = azurerm_nat_gateway.this.id
+  public_ip_prefix_id = each.value.id
 }
 
 # Don't create "azurerm_subnet_nat_gateway_association" resources in this module.
