@@ -13,6 +13,12 @@ variable "location" {
   type        = string
 }
 
+variable "log_analytics_workspace_id" {
+  description = "The ID of the Log Analytics workspace to send diagnostics to."
+  type        = string
+  nullable    = false
+}
+
 variable "public_ip_address_ids" {
   description = "A list of IDs of Public IP addresses to associate with this NAT gateway."
   type        = list(string)
@@ -22,6 +28,27 @@ variable "public_ip_address_ids" {
 variable "public_ip_prefix_ids" {
   description = "A list of IDs of Public IP prefixes to associate with this NAT gateway."
   type        = list(string)
+  default     = []
+}
+
+variable "diagnostic_setting_name" {
+  description = "The name of this diagnostic setting."
+  type        = string
+  nullable    = false
+  default     = "flow-logs"
+}
+
+variable "diagnostic_setting_enabled_log_categories" {
+  description = "A list of log categories to be enabled for this diagnostic setting."
+  type        = list(string)
+  nullable    = false
+  default     = ["NatGatewayFlowLogsV1"]
+}
+
+variable "diagnostic_setting_enabled_metric_categories" {
+  description = "A list of metric categories to be enabled for this diagnostic setting."
+  type        = list(string)
+  nullable    = false
   default     = []
 }
 
