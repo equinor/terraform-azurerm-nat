@@ -2,7 +2,7 @@ resource "azurerm_nat_gateway" "this" {
   name                = var.gateway_name
   resource_group_name = var.resource_group_name
   location            = var.location
-  sku_name            = "Standard" # Only supported value
+  sku_name            = "StandardV2" # Required to create a diagnostic setting.
 
   tags = var.tags
 }
@@ -27,3 +27,26 @@ resource "azurerm_nat_gateway_public_ip_prefix_association" "this" {
 #
 # This ensures a standard approach to associating a subnet with a NAT gateway:
 # a subnet is associated with a NAT gateway during subnet creation.
+
+resource "azurerm_monitor_diagnostic_setting" "this" {
+  name                           = var.diagnostic_setting_name
+  target_resource_id             = azurerm_nat_gateway.this.id
+  log_analytics_workspace_id     = var.log_analytics_workspace_id
+  log_analytics_destination_type = "Dedicated"
+
+  dynamic "enabled_log" {
+    for_each = toset(var.diagnostic_setting_enabled_log_categories)
+
+    content {
+      category = enabled_log.value
+    }
+  }
+
+  dynamic "enabled_metric" {
+    for_each = toset(var.diagnostic_setting_enabled_metric_categories)
+
+    content {
+      category = enabled_metric.value
+    }
+  }
+}
