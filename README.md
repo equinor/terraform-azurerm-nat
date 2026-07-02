@@ -5,7 +5,7 @@ Terraform module which creates Azure NAT Gateway resources.
 ## Features
 
 - Creates a StandardV2 tier NAT gateway in the specified resource group.
-- Creates and associates a Public IP address the NAT gateway by default.
+- Creates and associates a Public IP address with the NAT gateway by default.
 - Flow logs sent to given Log Analytics workspace by default.
 
 ## Prerequisites
