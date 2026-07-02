@@ -28,7 +28,8 @@ variable "public_ip_addresses" {
   default = {
     # Default to same Public IP address configuration as in Azure Portal.
     "default" = {
-      name = "nat-pip"
+      name       = "nat-pip"
+      ip_version = optional(string, "IPv4")
     }
   }
 }
@@ -37,6 +38,7 @@ variable "public_ip_prefixes" {
   description = "A map of Public IP prefixes to create and associate with this NAT gateway."
   type = map(object({
     name          = string
+    ip_version    = optional(string, "IPv4")
     prefix_length = optional(number, 28)
   }))
   nullable = false
