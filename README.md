@@ -22,7 +22,7 @@ provider "azurerm" {
 
 module "nat" {
   source  = "equinor/nat/azurerm"
-  version = "~> 2.1"
+  version = "~> 3.0"
 
   gateway_name               = "example-gateway"
   resource_group_name        = azurerm_resource_group.example.name
