@@ -5,8 +5,7 @@ Terraform module which creates Azure NAT Gateway resources.
 ## Features
 
 - Creates a StandardV2 tier NAT gateway in the specified resource group.
-- Creates specified Public IP address associations.
-- Creates specified Public IP prefix associations.
+- Creates and associates a Public IP address with the NAT gateway by default.
 - Flow logs sent to given Log Analytics workspace by default.
 
 ## Prerequisites
@@ -29,8 +28,6 @@ module "nat" {
   resource_group_name        = azurerm_resource_group.example.name
   location                   = azurerm_resource_group.example.location
   log_analytics_workspace_id = module.log_analytics.workspace_id
-
-  public_ip_address_ids = [module.public_ip.address_id]
 }
 
 resource "azurerm_resource_group" "example" {
@@ -45,16 +42,6 @@ module "log_analytics" {
   workspace_name      = "example-workspace"
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-}
-
-module "public_ip" {
-  source  = "equinor/public-ip/azurerm"
-  version = "~> 1.1"
-
-  address_name               = "example-ip"
-  resource_group_name        = azurerm_resource_group.example.name
-  location                   = azurerm_resource_group.example.location
-  log_analytics_workspace_id = module.log_analytics.workspace_id
 }
 ```
 

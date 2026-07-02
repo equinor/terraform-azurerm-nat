@@ -19,16 +19,30 @@ variable "log_analytics_workspace_id" {
   nullable    = false
 }
 
-variable "public_ip_address_ids" {
-  description = "A list of IDs of Public IP addresses to associate with this NAT gateway."
-  type        = list(string)
-  default     = []
+variable "public_ip_addresses" {
+  description = "A map of Public IP addresses to create and associate with this NAT gateway."
+  type = map(object({
+    name       = string
+    ip_version = optional(string, "IPv4")
+  }))
+  nullable = false
+  default = {
+    # Default to same Public IP address configuration as in Azure Portal.
+    "default" = {
+      name = "nat-pip"
+    }
+  }
 }
 
-variable "public_ip_prefix_ids" {
-  description = "A list of IDs of Public IP prefixes to associate with this NAT gateway."
-  type        = list(string)
-  default     = []
+variable "public_ip_prefixes" {
+  description = "A map of Public IP prefixes to create and associate with this NAT gateway."
+  type = map(object({
+    name          = string
+    ip_version    = optional(string, "IPv4")
+    prefix_length = optional(number, 28)
+  }))
+  nullable = false
+  default  = {}
 }
 
 variable "diagnostic_setting_name" {

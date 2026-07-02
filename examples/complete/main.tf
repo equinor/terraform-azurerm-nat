@@ -13,32 +13,34 @@ resource "random_id" "example" {
 }
 
 module "log_analytics" {
-  source = "github.com/equinor/terraform-azurerm-log-analytics?ref=v2.1.1"
+  source  = "equinor/log-analytics/azurerm"
+  version = "~> 2.3"
 
   workspace_name      = "log-${random_id.example.hex}"
   resource_group_name = var.resource_group_name
   location            = var.location
 }
 
-module "public_ip" {
-  source = "github.com/equinor/terraform-azurerm-public-ip?ref=v0.1.0"
-
-  address_name               = "pip-${random_id.example.hex}"
-  resource_group_name        = var.resource_group_name
-  location                   = var.location
-  log_analytics_workspace_id = module.log_analytics.workspace_id
-
-  tags = local.tags
-}
-
 module "nat" {
   # source = "github.com/equinor/terraform-azurerm-nat?ref=v0.0.0"
   source = "../.."
 
-  gateway_name          = "ng-${random_id.example.hex}"
-  resource_group_name   = var.resource_group_name
-  location              = var.location
-  public_ip_address_ids = [module.public_ip.address_id]
+  gateway_name               = "ng-${random_id.example.hex}"
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+  log_analytics_workspace_id = module.log_analytics.workspace_id
+
+  public_ip_addresses = {
+    "default" = {
+      name = "nat-pip"
+    }
+  }
+
+  public_ip_prefixes = {
+    "default" = {
+      name = "nat-prefix"
+    }
+  }
 
   tags = local.tags
 }

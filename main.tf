@@ -7,18 +7,44 @@ resource "azurerm_nat_gateway" "this" {
   tags = var.tags
 }
 
+resource "azurerm_public_ip" "this" {
+  for_each = var.public_ip_addresses
+
+  name                = each.value.name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  sku                 = "StandardV2" # Required when NAT gateway SKU name is "StandardV2".
+  allocation_method   = "Static"     # Required when SKU is "StandardV2".
+  ip_version          = each.value.ip_version
+
+  tags = var.tags
+}
+
 resource "azurerm_nat_gateway_public_ip_association" "this" {
-  count = length(var.public_ip_address_ids)
+  for_each = azurerm_public_ip.this
 
   nat_gateway_id       = azurerm_nat_gateway.this.id
-  public_ip_address_id = var.public_ip_address_ids[count.index]
+  public_ip_address_id = each.value.id
+}
+
+resource "azurerm_public_ip_prefix" "this" {
+  for_each = var.public_ip_prefixes
+
+  name                = each.value.name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  sku                 = "StandardV2" # Required when NAT gateway SKU name is "StandardV2".
+  ip_version          = each.value.ip_version
+  prefix_length       = each.value.prefix_length
+
+  tags = var.tags
 }
 
 resource "azurerm_nat_gateway_public_ip_prefix_association" "this" {
-  count = length(var.public_ip_prefix_ids)
+  for_each = azurerm_public_ip_prefix.this
 
   nat_gateway_id      = azurerm_nat_gateway.this.id
-  public_ip_prefix_id = var.public_ip_prefix_ids[count.index]
+  public_ip_prefix_id = each.value.id
 }
 
 # Don't create "azurerm_subnet_nat_gateway_association" resources in this module.
