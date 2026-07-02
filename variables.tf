@@ -36,7 +36,8 @@ variable "public_ip_addresses" {
 variable "public_ip_prefixes" {
   description = "A map of Public IP prefixes to create and associate with this NAT gateway."
   type = map(object({
-    name = string
+    name          = string
+    prefix_length = optional(number, 28)
   }))
   nullable = false
   default  = {}

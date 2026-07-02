@@ -43,6 +43,8 @@ resource "azurerm_public_ip_prefix" "this" {
   # The SKU must match the NAT gateway SKU name.
   sku = "StandardV2"
 
+  prefix_length = each.value.prefix_length
+
   tags = var.tags
 }
 
