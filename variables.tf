@@ -13,10 +13,22 @@ variable "location" {
   type        = string
 }
 
-variable "log_analytics_workspace_id" {
-  description = "The ID of the Log Analytics workspace to send diagnostics to."
+variable "sku_name" {
+  description = "The SKU name for this NAT gateway. Value must be \"StandardV2\" or \"Standard\"."
   type        = string
   nullable    = false
+  default     = "StandardV2"
+
+  validation {
+    condition     = contains(["StandardV2", "Standard"], var.sku_name)
+    error_message = "SKU name must be \"StandardV2\" or \"Standard\"."
+  }
+}
+
+variable "log_analytics_workspace_id" {
+  description = "The ID of the Log Analytics workspace to send diagnostics to. Required if SKU name is \"StandardV2\"."
+  type        = string
+  nullable    = true
 }
 
 variable "public_ip_addresses" {
