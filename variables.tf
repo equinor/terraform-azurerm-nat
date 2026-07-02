@@ -22,14 +22,14 @@ variable "log_analytics_workspace_id" {
 variable "public_ip_addresses" {
   description = "A map of Public IP addresses to create and associate with this NAT gateway."
   type = map(object({
-    name = string
+    name       = string
+    ip_version = optional(string, "IPv4")
   }))
   nullable = false
   default = {
     # Default to same Public IP address configuration as in Azure Portal.
     "default" = {
-      name       = "nat-pip"
-      ip_version = optional(string, "IPv4")
+      name = "nat-pip"
     }
   }
 }
