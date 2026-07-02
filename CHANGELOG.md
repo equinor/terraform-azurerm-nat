@@ -1,5 +1,19 @@
 # Changelog
 
+## [3.0.0](https://github.com/equinor/terraform-azurerm-nat/compare/v2.1.2...v3.0.0) (2026-07-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove variables `public_ip_address_ids` and `public_ip_prefix_ids`. Create Public IP resources using the `public_ip_addresses` and `public_ip_prefixes` variables instead.
+* add required variable `log_analytics_workspace_id`.
+
+### Features
+
+* add variable `sku_name` ([#27](https://github.com/equinor/terraform-azurerm-nat/issues/27)) ([7d3a39e](https://github.com/equinor/terraform-azurerm-nat/commit/7d3a39ed925275ea295ca59e8864ca6f2caf6ba4))
+* create Public IP addresses and prefixes ([#26](https://github.com/equinor/terraform-azurerm-nat/issues/26)) ([8e888c5](https://github.com/equinor/terraform-azurerm-nat/commit/8e888c51b33af7429044c865ab36bc42b7594d32))
+* send flow logs to Log Analytics workspace ([#24](https://github.com/equinor/terraform-azurerm-nat/issues/24)) ([0fa28a5](https://github.com/equinor/terraform-azurerm-nat/commit/0fa28a5777c7461cc03a7a77cdf07d551347e441))
+
 ## [2.1.2](https://github.com/equinor/terraform-azurerm-nat/compare/v2.1.1...v2.1.2) (2025-05-05)
 
 
